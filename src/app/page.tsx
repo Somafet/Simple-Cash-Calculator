@@ -38,12 +38,12 @@ export default function Home({ searchParams: { P20000 = "0", P10000 = "0", P5000
           </div>
           <div className="py-4 px-4 space-y-6">
             <p className="text-base font-semibold leading-6 text-gray-900 dark:text-white">Összesen: {formatter.format(billSum)}</p>
-            <CashInput denomination={20000} count={P20000} />
-            <CashInput denomination={10000} count={P10000} />
-            <CashInput denomination={5000} count={P5000} />
-            <CashInput denomination={2000} count={P2000} />
-            <CashInput denomination={1000} count={P1000} />
-            <CashInput denomination={500} count={P500} />
+            <CashInput denomination={20000} />
+            <CashInput denomination={10000} />
+            <CashInput denomination={5000} />
+            <CashInput denomination={2000} />
+            <CashInput denomination={1000} />
+            <CashInput denomination={500} />
           </div>
         </div>
         <div className="rounded-3xl ring-1 ring-gray-200">
@@ -52,12 +52,12 @@ export default function Home({ searchParams: { P20000 = "0", P10000 = "0", P5000
           </div>
           <div className="py-4 px-4 space-y-6">
             <p className="text-base font-semibold leading-6 text-gray-900 dark:text-white">Összesen: {formatter.format(coinSum)}</p>
-            <CashInput denomination={200} count={P200} />
-            <CashInput denomination={100} count={P100} />
-            <CashInput denomination={50} count={P50} />
-            <CashInput denomination={20} count={P20} />
-            <CashInput denomination={10} count={P10} />
-            <CashInput denomination={5}  count={P5} />
+            <CashInput denomination={200} />
+            <CashInput denomination={100} />
+            <CashInput denomination={50} />
+            <CashInput denomination={20} />
+            <CashInput denomination={10} />
+            <CashInput denomination={5} />
           </div>
         </div>
         <p className="text-base font-semibold leading-6 text-gray-900 dark:text-white">Teljes Összeg: {formatter.format(totalSum)}</p>

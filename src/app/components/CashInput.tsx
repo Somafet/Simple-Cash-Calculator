@@ -8,13 +8,19 @@ import { useMemo } from "react";
 
 type CashInputProps = {
   denomination: number;
-  count?: string;
 }
 
-const CashInput = ({ denomination, count: initialCount = "0" }: CashInputProps) => {
-  const count = parseInt(initialCount);
+const CashInput = ({ denomination }: CashInputProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const count = useMemo(() => {
+    const count = parseInt(searchParams.get("P" + denomination) ?? "0");
+    if (isNaN(count)) {
+      return 0;
+    }
+    return count;
+  }, [denomination, searchParams]);
 
   const newSearchParams: Record<string, string> = useMemo(() => {
     const tempRecord: Record<string, string> = {};
@@ -71,7 +77,7 @@ const CashInput = ({ denomination, count: initialCount = "0" }: CashInputProps) 
 
             const url = `${pathName}?${new URLSearchParams(newSearchParams).toString()}`
 
-            router.push(url);
+            router.push(url, { scroll: false });
           }}
           type="number"
           name={`cash-input-${denomination}`}
