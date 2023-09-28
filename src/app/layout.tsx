@@ -17,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="hu">
-      <body className={classNames(openSans.className, "dark:bg-slate-800 dark:text-white")}>
+    <html lang="hu" className="dark:bg-slate-800 dark:text-white">
+      <body className={openSans.className}>
         {children}
         <Footer />
       </body>
