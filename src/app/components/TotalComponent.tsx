@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import React, { useMemo } from "react";
 import { formatter } from "../utils/number.utils";
+import { ClipboardDocumentIcon } from "@heroicons/react/20/solid";
 
 type TotalType = "all" | "bill" | "coin";
 
@@ -40,8 +41,17 @@ const TotalComponent = ({type, label, ...props}: TotalComponentProps) => {
     }
   }, [searchParams, type]);
 
+  const formattedValue = useMemo(() => formatter.format(value), [value]);
+
   return <div {...props}>
-    {label} {formatter.format(value)}
+    {label} {formattedValue}
+    <button
+      onClick={() => navigator.clipboard.writeText(formattedValue)}
+      type="button"
+      className="ml-2 rounded-full p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
+      </button>
   </div>
 }
 
