@@ -1,10 +1,10 @@
 "use client";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { formatter } from "../utils/number.utils";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 type CashInputProps = {
   denomination: number;
@@ -34,21 +34,13 @@ const CashInput = ({ denomination }: CashInputProps) => {
 
   const pathName = usePathname();
 
-  const addToCountLink = useMemo(() => {
-    newSearchParams["P" + denomination] = (count + 1).toString();
+  const updateCount = useCallback((value: number) => {
+    newSearchParams["P" + denomination] = (value).toString();
     return {
       pathname: pathName,
       query: new URLSearchParams(newSearchParams).toString(),
     }
-  }, [count, denomination, newSearchParams, pathName]);
-
-  const takeFromCountLink = useMemo(() => {
-    newSearchParams["P" + denomination] = (count - 1).toString();
-    return {
-      pathname: pathName,
-      query: new URLSearchParams(newSearchParams).toString(),
-    }
-  }, [count, denomination, newSearchParams, pathName]);
+  }, [denomination, newSearchParams, pathName]);
 
   return <div>
     <label htmlFor={`cash-input-${denomination}`} className="block text-sm font-semibold leading-6">
@@ -58,7 +50,7 @@ const CashInput = ({ denomination }: CashInputProps) => {
       <span className="isolate inline-flex rounded-md shadow-sm flex-3">
         <Link
           scroll={false}
-          href={takeFromCountLink}
+          href={updateCount(count - 1)}
           className="relative inline-flex items-center rounded-l-md bg-white dark:bg-slate-600 px-2 py-2 text-gray-400 dark:text-gray-200 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:hover:bg-slate-500 focus:z-10"
         >
           <span className="sr-only">Elvevés</span>
@@ -87,7 +79,7 @@ const CashInput = ({ denomination }: CashInputProps) => {
         />
         <Link
           scroll={false}
-          href={addToCountLink}
+          href={updateCount(count + 1)}
           className="relative -ml-px inline-flex items-center rounded-r-md bg-white dark:bg-slate-600 px-2 py-2 text-gray-400 dark:text-gray-200 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:hover:bg-slate-500 focus:z-10"
         >
           <span className="sr-only">Hozzáadás</span>
@@ -98,6 +90,17 @@ const CashInput = ({ denomination }: CashInputProps) => {
       <div className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-white ml-3 flex-1 min-w-[70px]">
         {formatter.format(count * denomination)}
       </div>
+      <Link
+        scroll={false}
+        href={updateCount(0)}
+      >
+        <button
+          type="button"
+          className="rounded-full p-1 text-white shadow-sm hover:gray-100 dark:hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 h-fit w-fit"
+        >
+          <XMarkIcon className="h-6 w-6" aria-hidden />
+        </button>
+      </Link>
     </div>
   </div>
 }

@@ -44,11 +44,14 @@ const TotalComponent = ({type, label, ...props}: TotalComponentProps) => {
   const formattedValue = useMemo(() => formatter.format(value), [value]);
 
   return <div {...props}>
-    {label} {formattedValue}
+    <div className="mr-1">
+      <p>{label}</p>
+      <p>{formattedValue}</p>
+    </div>
     <button
       onClick={() => navigator.clipboard.writeText(formattedValue)}
       type="button"
-      className="ml-2 rounded-full p-1 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      className="rounded-full p-1 text-white shadow-sm hover:gray-100 dark:hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 h-fit w-fit"
       >
         <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
       </button>
